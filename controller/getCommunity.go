@@ -9,21 +9,18 @@ import (
 )
 
 func GetCommunity(c *fiber.Ctx) error {
-	type CommReq struct {
-		Link string `json:"commlink"`
-	}
-
-	var reqComm CommReq
-
-	if err := c.BodyParser(&reqComm); err != nil {
-		fmt.Println("Request for Community: Unable to parse body")
-	}
+	link := c.Params("link")
 
 	var commID int
+	var comm models.Community
 
 	//retrieving id of the community
-	if err := connect.DB.Table("communities").Select("id").Where("link = ?", reqComm.Link).Find(&commID); err != nil {
+	if err := connect.DB.Table("communities").Select("id").Where("link = ?", link).Find(&commID); err != nil {
 		fmt.Println("Error retrieving community ID")
+	}
+
+	if err := connect.DB.First(&comm, "id = ?", commID); err != nil {
+		fmt.Println("Error retrieving community")
 	}
 
 	if commID == 0 {
@@ -40,5 +37,7 @@ func GetCommunity(c *fiber.Ctx) error {
 		fmt.Println("Error retrieving posts from community")
 	}
 
-	return (c.JSON(postList))
+	return (c.JSON(fiber.Map{
+		"community": comm,
+		"posts":     postList}))
 }
