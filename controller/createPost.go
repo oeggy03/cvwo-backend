@@ -2,6 +2,7 @@ package controller
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/oeggy03/cvwo-backend/connect"
@@ -9,12 +10,24 @@ import (
 )
 
 func CreatePost(c *fiber.Ctx) error {
-	var post models.Post
+	var data map[string]interface{}
 
-	if err := c.BodyParser(&post); err != nil {
+	if err := c.BodyParser(&data); err != nil {
 		fmt.Println("Create Post: Unable to parse body")
 	}
 
+	fmt.Println(data)
+
+	intID, _ := strconv.Atoi(data["userid"].(string))
+	// intComm, _ := strconv.Atoi(data["communityid"].(string))
+
+	post := models.Post{
+		Title:       data["title"].(string),
+		Desc:        data["desc"].(string),
+		Content:     data["content"].(string),
+		UserID:      uint(intID),
+		CommunityID: uint(data["communityid"].(float64)),
+	}
 	if err := connect.DB.Create(&post).Error; err != nil {
 		c.Status(400)
 		return c.JSON(fiber.Map{

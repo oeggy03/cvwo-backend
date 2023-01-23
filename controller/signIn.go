@@ -55,7 +55,7 @@ func SignIn(c *fiber.Ctx) error {
 
 	return c.JSON(fiber.Map{
 		"user":    user,
-		"message": "Login Successful",
+		"message": "Login Successful! You may close the popup.",
 	})
 
 }
