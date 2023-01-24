@@ -16,7 +16,7 @@ func GetUser(c *fiber.Ctx) error {
 	})
 
 	//error handling
-	if err != nil || !token.Valid {
+	if err != nil {
 		c.Status(fiber.StatusUnauthorized)
 		return c.JSON(fiber.Map{
 			"message": "Unauthenticated",
@@ -31,5 +31,6 @@ func GetUser(c *fiber.Ctx) error {
 	//Find that user
 	connect.DB.Where("id = ?", claims.Issuer).First(&user)
 
+	c.Status(200)
 	return c.JSON(user)
 }
