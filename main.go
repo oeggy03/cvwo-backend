@@ -24,14 +24,17 @@ func main() {
 
 	port := os.Getenv("PORT")
 	app := fiber.New()
+
+	//to prevent Cors issues
 	app.Use(cors.New(cors.Config{
-		AllowHeaders:     "*",
-		AllowOrigins:     "*",
 		AllowCredentials: true,
 		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH,OPTIONS",
 	}))
 
+	//set up routes
 	routes.Setup(app)
+
+	//port retrieved from env. currently running on port 3001 as frontend is on 3000
 	app.Listen(":" + port)
 
 }

@@ -6,7 +6,7 @@ type User struct {
 	ID       uint   `json:"id"`
 	Username string `json:"username"`
 	Email    string `json:"email"`
-	Password []byte `json:"-"`
+	Password []byte `json:"-"` //"-" means that password is not returned when user is retrieved
 }
 
 func (user *User) SetPassword(password string) {

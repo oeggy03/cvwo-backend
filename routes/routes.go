@@ -14,6 +14,9 @@ func Setup(app *fiber.App) {
 	app.Get("/api/GetCommDetails/:link", controller.GetCommDetails)
 	app.Post("/api/CreateUser", controller.CreateUser)
 	app.Post("/api/SignIn", controller.SignIn)
+	app.Get("/api/GetUser", controller.GetUser)
+	app.Get("/api/GetUserPosts", controller.GetUserPosts)
+	app.Post("/api/LogOut", controller.LogOut)
 	app.Get("/api/RetrievePost/:id", controller.RetrievePost)
 	// //when we go to this link, register is called
 	// app.Post("/api/register", controller.Register)
