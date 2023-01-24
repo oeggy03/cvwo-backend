@@ -1,10 +1,13 @@
 package models
 
+import "time"
+
 type Comment struct {
-	ID      uint   `json:"id"`
-	Content string `json:"content"`
-	PostID  int    `json:"postid"`
-	UserID  string `json:"userid"`
-	Post    Post   `json:"post":gorm:"foreignkey:PostID"`
-	User    User   `json:"user":gorm:"foreignkey:UserID"`
+	ID        uint      `json:"id"`
+	CreatedAt time.Time `json:"postdate"`
+	Content   string    `json:"content"`
+	PostID    int       `json:"postid"`
+	UserID    int       `json:"userid"`
+	Post      Post      `json:"post":gorm:"foreignkey:PostID"`
+	User      User      `json:"user":gorm:"foreignkey:UserID"`
 }

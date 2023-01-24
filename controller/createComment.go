@@ -11,7 +11,7 @@ import (
 	"github.com/oeggy03/cvwo-backend/util"
 )
 
-func CreatePost(c *fiber.Ctx) error {
+func CreateComment(c *fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
 
 	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(t *jwt.Token) (interface{}, error) {
@@ -29,28 +29,30 @@ func CreatePost(c *fiber.Ctx) error {
 	//Access issuer through claims.Issuer
 	claims := token.Claims.(*jwt.StandardClaims)
 
-	var data map[string]interface{}
+	var data map[string]string
 
 	if err := c.BodyParser(&data); err != nil {
 		fmt.Println("Create Post: Unable to parse body")
 	}
 
-	intID, _ := strconv.Atoi(claims.Issuer)
+	intPostID, _ := strconv.Atoi(data["postid"])
+	intUserID, _ := strconv.Atoi(claims.Issuer)
 
-	post := models.Post{
-		Title:       data["title"].(string),
-		Desc:        data["desc"].(string),
-		Content:     data["content"].(string),
-		UserID:      uint(intID),
-		CommunityID: uint(data["communityid"].(float64)),
+	comment := models.Comment{
+		Content: data["content"],
+		PostID:  intPostID,
+		UserID:  intUserID,
 	}
-	if err := connect.DB.Create(&post).Error; err != nil {
+
+	if err := connect.DB.Create(&comment).Error; err != nil {
 		c.Status(400)
 		return c.JSON(fiber.Map{
-			"message": "Create Post: Invalid payload",
+			"message": "Create Comment: Invalid payload",
 		})
 	}
 
 	c.Status(200)
-	return c.JSON(post.ID)
+	return c.JSON(fiber.Map{
+		"message": "success",
+	})
 }
