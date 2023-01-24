@@ -8,6 +8,7 @@ type Comment struct {
 	Content   string    `json:"content"`
 	PostID    int       `json:"postid"`
 	UserID    int       `json:"userid"`
+	Creator   string    `json:"creator"`
 	Post      Post      `json:"post":gorm:"foreignkey:PostID"`
 	User      User      `json:"user":gorm:"foreignkey:UserID"`
 }

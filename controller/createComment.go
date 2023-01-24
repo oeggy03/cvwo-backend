@@ -38,10 +38,15 @@ func CreateComment(c *fiber.Ctx) error {
 	intPostID, _ := strconv.Atoi(data["postid"])
 	intUserID, _ := strconv.Atoi(claims.Issuer)
 
+	//To assign the creator username to comment
+	var creator models.User
+	connect.DB.Where("id = ?", claims.Issuer).First(&creator)
+
 	comment := models.Comment{
 		Content: data["content"],
 		PostID:  intPostID,
 		UserID:  intUserID,
+		Creator: creator.Username,
 	}
 
 	if err := connect.DB.Create(&comment).Error; err != nil {
