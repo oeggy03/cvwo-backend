@@ -13,7 +13,7 @@ import (
 
 func DeletePost(c *fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
-	postID := c.Params("id")
+	postID, _ := strconv.Atoi(c.Params("id"))
 
 	var postFormat models.Post
 	var creatorID int64
@@ -50,6 +50,11 @@ func DeletePost(c *fiber.Ctx) error {
 		})
 	}
 
+	//To prevent the foreign key constraint - cannot delete parent row error, we need to delete the posts' comments first
+	var commentFormat models.Comment
+	connect.DB.Where("post_id = ?", postID).Delete(&commentFormat)
+
+	//Now we delete from posts
 	connect.DB.Delete(&postFormat, postID)
 	c.Status(200)
 	return c.JSON(fiber.Map{
