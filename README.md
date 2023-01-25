@@ -10,6 +10,10 @@ A cvwo.sql file has been added to include pre-made communities, posts and commen
 4. You may import the included cvwo.sql file. Or, you may start fresh and create a DB named "cvwoforum".
 5. Starting fresh means that you have to sign up for an account yourself, then create communities, comments and posts yourself.
 
+If you use the cvwoforum.sql file, this is an account you can use: 
+Username: NewAccount
+Password: newaccount
+
 ## Running the GO program
 ### `go mod tidy`
 Run this to install any necessary dependencies
