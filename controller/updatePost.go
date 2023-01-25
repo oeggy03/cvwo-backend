@@ -55,6 +55,8 @@ func UpdatePost(c *fiber.Ctx) error {
 			"message": "You may not update this post as you are not its creator.",
 		})
 	}
+
+	//Assign the updated vars to postNew
 	postNew.Title = updatedPost["title"].(string)
 	postNew.Desc = updatedPost["desc"].(string)
 	postNew.Content = updatedPost["content"].(string)

@@ -22,17 +22,9 @@ func Setup(app *fiber.App) {
 	app.Post("/api/CreateComment", controller.CreateComment)
 	app.Get("/api/RetrieveComments/:id", controller.RetrieveComments)
 	app.Put("/api/UpdatePost", controller.UpdatePost)
-	// //when we go to this link, register is called
-	// app.Post("/api/register", controller.Register)
-	// app.Post("/api/login", controller.Login)
+	app.Delete("/api/DeleteComment/:id", controller.DeleteComment)
+	app.Put("/api/UpdateComment", controller.EditComment)
 	// //If user is not authenticated, they cannot access any route below this middleware
 	// app.Use(middleware.IsAuthenticated)
-	// app.Post("/api/post", controller.CreatePost)
-	// app.Get("/api/allposts", controller.AllPost)
-	// app.Get("/api/allposts/:id", controller.DetailedPost)
-	// app.Put("/api/updatepost/:id", controller.UpdatePost)
-	// app.Get("/api/uniquepost", controller.UniquePost)
-	// app.Delete("/api/deletepost/:id", controller.DeletePost)
-	// app.Post("/api/upload-image", controller.Upload)
-	// app.Static("/api/uploads", "./uploads")
+
 }
