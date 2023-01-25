@@ -20,6 +20,12 @@ func CreateUser(c *fiber.Ctx) error {
 
 	connect.DB.Where("username = ?", data["username"].(string)).First(&checkUser)
 
+	if len(data["username"].(string)) == 0 || len(data["password"].(string)) == 0 || len(data["email"].(string)) == 0 {
+		c.Status(400)
+		return c.JSON(fiber.Map{
+			"message": "Please do not leave any field empty.",
+		})
+	}
 	if checkUser.ID != 0 {
 		c.Status(400)
 		return c.JSON(fiber.Map{
