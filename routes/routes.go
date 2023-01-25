@@ -21,6 +21,7 @@ func Setup(app *fiber.App) {
 	app.Delete("/api/DeletePost/:id", controller.DeletePost)
 	app.Post("/api/CreateComment", controller.CreateComment)
 	app.Get("/api/RetrieveComments/:id", controller.RetrieveComments)
+	app.Put("/api/UpdatePost", controller.UpdatePost)
 	// //when we go to this link, register is called
 	// app.Post("/api/register", controller.Register)
 	// app.Post("/api/login", controller.Login)

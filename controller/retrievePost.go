@@ -27,9 +27,8 @@ func RetrievePost(c *fiber.Ctx) error {
 	//error handling
 	if err != nil || !token.Valid {
 		c.Status(fiber.StatusUnauthorized)
-		fmt.Println("hello", err.Error())
 		return c.JSON(fiber.Map{
-			"message": err.Error(),
+			"message": "You are unauthorized! Please sign in first.",
 		})
 	}
 
@@ -41,10 +40,9 @@ func RetrievePost(c *fiber.Ctx) error {
 
 	if post.ID == 0 {
 		c.Status(404)
-		return c.JSON("Post not found.")
+		return c.JSON(fiber.Map{"message": "Post not found."})
 	}
 
-	fmt.Println(post)
 	if err := connect.DB.Table("communities").Select("name").Where("id = ?", post.CommunityID).Find(&comm); err != nil {
 		fmt.Println("Error retrieving community: retrieve post")
 	}
@@ -59,5 +57,6 @@ func RetrievePost(c *fiber.Ctx) error {
 		"post":      post,
 		"community": comm,
 		"owner":     claims.Issuer == strconv.Itoa(int(post.UserID)),
+		"message":   "Success retrieving post!",
 	})
 }
