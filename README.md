@@ -1,6 +1,6 @@
 # cvwo-backend
 
-##Setting up MySQL
+## Setting up MySQL
 
 A cvwo.sql file has been added to include pre-made communities, posts and comments. You can import it.
 
