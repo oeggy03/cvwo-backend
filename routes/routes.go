@@ -24,7 +24,4 @@ func Setup(app *fiber.App) {
 	app.Put("/api/UpdatePost", controller.UpdatePost)
 	app.Delete("/api/DeleteComment/:id", controller.DeleteComment)
 	app.Put("/api/UpdateComment", controller.EditComment)
-	// //If user is not authenticated, they cannot access any route below this middleware
-	// app.Use(middleware.IsAuthenticated)
-
 }
