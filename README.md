@@ -1,4 +1,8 @@
-# cvwo-backend
+# CVWO Forum - FoRoom
+
+This is a fully functional forum website prototype. Its features include: Secure user authentication and accounts, post communities, community creation, post creation, updating and deletion, comment creation, updating and deletion.
+
+This is meant to be run with the frontend. The frontend can be cloned from this repo: https://github.com/oeggy03/cvwo-frontend
 
 ## Setting up MySQL
 
